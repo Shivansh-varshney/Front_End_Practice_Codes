@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>5</title>
+    <title>8</title>
     <style>
         button{
             border: none;
@@ -31,10 +31,10 @@
     padding: 3vw;">
 
         <h1>Student Registration Form</h1>
-        <form onsubmit="submit()">
+        <form>
 
-            <input type="text" placeholder="First Name">
-            <input type="text" placeholder="Last Name"><br><br>
+            <input type="text" placeholder="Full Name" id="name" required>
+            <input type="text" placeholder="Roll Number" id="rollno" required><br><br>
             
             <input type="radio" name="gender" value="Male">
             <label for="Male">Male</label><br>
@@ -44,7 +44,7 @@
             <label for="Others">Others</label><br><br>
 
             <label for="birthday">Date of Birth</label>
-            <input type="date" id="birthday"><br><br>
+            <input type="date" id="birthday" required><br><br>
 
             <div style="border: 1px solid black;
             padding-left: 2vw;
@@ -59,7 +59,7 @@
             </div>
 
             <label for="dropdown">Choose Language</label>
-            <select name="dropdown">
+            <select name="dropdown" required>
                 <option value="none">select</option>
                 <option value="English">English</option>
                 <option value="Hindi">Hindi</option>
@@ -67,12 +67,24 @@
             
             <br><br>
             <button id="re" type="reset">Reset</button>
-            <button id="sub" type="submit">Submit</button>
-            <div>
+            <button id="sub" type="submit" onclick="check()">Submit</button>
 
-            </div>
         </form>
     </div>
+    <script>
+        function check(){
+            var roll = document.getElementById('rollno').value;
+            roll = roll.split('')
+            var nme = document.getElementById('name').value;
 
+            if(roll.length === 7 && typeof nme == 'string'){
+                document.write("<h2>All the details were correct and the form has been submitted successfully.</h2>")
+            }
+            else{
+                console.log("Something went wrong.")
+            }
+
+        }
+    </script>
 </body>
 </html>
