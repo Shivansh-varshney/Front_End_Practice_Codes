@@ -44,7 +44,8 @@
         <h1>Student Registration Form</h1>
         <form>
 
-            <input type="text" placeholder="Full Name" id="name" required>
+            <input type="text" placeholder="First Name" id="first_name" required>
+            <input type="text" placeholder="Last Name" id="last_name" required><br><br>
             <input type="text" placeholder="Roll Number" id="rollno" required><br><br>
 
             <input type="radio" name="gender" value="Male" required>
@@ -82,29 +83,62 @@
     </div>
 
     <script>
-        function check() {
+function is_alphabetical(value){
+    // this function checks if there is any character other than alphabets
+    // if there is then return false otherwise true.
 
-            let roll = document.getElementById('rollno').value;
-            roll = roll.length;
-
-            // let verify;
-            let nme = document.getElementById('name').value;
-
-            if(roll == 7){
-                for (let char of nme){
-                    char = char.toLowerCase();
-                    if(("a".charCodeAt() <= char.charCodeAt() || char.charCodeAt() >= "z".charCodeAt() || char.charCodeAt() == " ".charCodeAt()) == false) {
-                        document.write("<h2>Invalid Input: Name field must have alphabets only!!</h2>")
-                        return
-                    }
-                }
-                document.write("<h2>All the details were correct and the form has been submitted successfully.</h2>")
+    for (let char of value){
+            char = char.toLowerCase();
+            if(("a".charCodeAt() <= char.charCodeAt() || char.charCodeAt() >= "z".charCodeAt()) == false){
+                return false
             }
-            else{
-                document.write("<h2>Invalid Input: Roll number must have 7 digits!!</h2>")
-            }
+    }
+    return true
+}
+
+function check() {
+
+    // we have taken roll number as string as to check for the number of digits
+    // strings would be shortest way.
+
+    let roll = document.getElementById('rollno').value;
+    roll = roll.length; 
+    
+    // check number of digits in roll number
+    if(roll == 7){
+
+        // check first name
+        if(is_alphabetical(document.getElementById('first_name').value)  == true){
             
+            // if first name is correct then check last name.
+            if(is_alphabetical(document.getElementById('last_name').value) == true){
+                
+                // all the data is correct and can be submitted.
+                document.write("<h2>All the details were correct and your form has been submitted successfully.</h2>")
+            }
+
+            else{
+
+                // print the error for the last name
+                alert("Invalid Input: The last name must have alphabets only.")
+            }
         }
+
+        else{
+
+            // print the error for the first name
+            alert("Invalid Input: The first name must have alphabets only.")
+        }
+    }
+
+    else{
+
+        // print the error for the roll number
+        if( roll != ""){
+            alert("Invalid Input: Roll number must have 7 digits!!")
+        }
+    }
+}  
     </script>
 </body>
 
