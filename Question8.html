@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>8</title>
     <style>
-        button{
+        button {
             border: none;
             background: rgb(59, 132, 160);
             font-size: inherit;
             padding: 1vh;
         }
 
-        #sub:hover{
-            background: rgb(82, 204, 82);
-            color: black;
+        #form_div{
+            margin-left: 10vw;
+            margin-top: 5vw;
+            margin-right: 10vw;
+            border: 2px solid black;
+            padding: 3vw;
         }
-        #re:hover{
+
+        #check_box_field{
+            border: 1px solid black;
+            padding-left: 2vw;
+            margin-bottom: 3vw;
+        }
+
+        #sub:hover {
+            background: rgb(82, 204, 82);
+        }
+
+        #re:hover {
             background: red;
         }
-        
     </style>
 </head>
+
 <body>
 
-    <div style="margin-left: 10vw;
-    margin-top: 5vw;
-    margin-right: 10vw;
-    border: 2px solid black;
-    padding: 3vw;">
+    <div id="form_div">
 
         <h1>Student Registration Form</h1>
         <form>
 
             <input type="text" placeholder="Full Name" id="name" required>
             <input type="text" placeholder="Roll Number" id="rollno" required><br><br>
-            
-            <input type="radio" name="gender" value="Male">
+
+            <input type="radio" name="gender" value="Male" required>
             <label for="Male">Male</label><br>
             <input type="radio" name="gender" value="Female">
             <label for="Female">Female</label><br>
@@ -46,11 +57,9 @@
             <label for="birthday">Date of Birth</label>
             <input type="date" id="birthday" required><br><br>
 
-            <div style="border: 1px solid black;
-            padding-left: 2vw;
-            margin-bottom: 3vw;">
+            <div id="check_box_field">
                 <p>Check the box for the level of qualification you have completed till now.</p>
-                <input type="checkbox" name="checkbox">
+                <input type="checkbox" name="checkbox" required>
                 <label for="checkbox">Secondary</label>
                 <input type="checkbox" name="checkbox">
                 <label for="checkbox">High School</label>
@@ -64,27 +73,39 @@
                 <option value="English">English</option>
                 <option value="Hindi">Hindi</option>
             </select>
-            
+
             <br><br>
             <button id="re" type="reset">Reset</button>
             <button id="sub" type="submit" onclick="check()">Submit</button>
-
         </form>
+        <p id="result"></p>
     </div>
-    <script>
-        function check(){
-            var roll = document.getElementById('rollno').value;
-            roll = roll.split('')
-            var nme = document.getElementById('name').value;
 
-            if(roll.length === 7 && typeof nme == 'string'){
+    <script>
+        function check() {
+
+            let roll = document.getElementById('rollno').value;
+            roll = roll.length;
+
+            // let verify;
+            let nme = document.getElementById('name').value;
+
+            if(roll == 7){
+                for (let char of nme){
+                    char = char.toLowerCase();
+                    if(("a".charCodeAt() <= char.charCodeAt() || char.charCodeAt() >= "z".charCodeAt() || char.charCodeAt() == " ".charCodeAt()) == false) {
+                        document.write("<h2>Invalid Input: Name field must have alphabets only!!</h2>")
+                        return
+                    }
+                }
                 document.write("<h2>All the details were correct and the form has been submitted successfully.</h2>")
             }
             else{
-                console.log("Something went wrong.")
+                document.write("<h2>Invalid Input: Roll number must have 7 digits!!</h2>")
             }
-
+            
         }
     </script>
 </body>
+
 </html>
