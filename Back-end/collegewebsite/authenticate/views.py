@@ -12,12 +12,15 @@ def signup(request):
         username = request.POST.get('name')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        
-        user = User.objects.create_user(username = username, email = email, password = password)
-        user.save()
+        if username == '' or email == '' or password == '':
+            messages.error(request, "Please fill the form.")
+            return redirect('/signup')
+        else:
+            user = User.objects.create_user(username = username, email = email, password = password)
+            user.save()
 
-        messages.success(request, "Account created successfully!!")
-        return redirect('/signup')
+            messages.success(request, "Account created successfully!!")
+            return redirect('/signup')
     
     return render(request, 'signup.html')
 
@@ -32,14 +35,17 @@ def loginuser(request):
         # check whether the user credentials are valid
         username = request.POST['name']
         password = request.POST['password']
-
-        user = authenticate(request, username = username, password = password)
-        if user is not None:
-            login(request, user)
-            return redirect('/')
-        else:
-            messages.error(request, "Could not login.")
+        if username == '' or password == '':
+            messages.error(request, "Please fill the form.")
             return redirect('/signup')
+        else:
+            user = authenticate(request, username = username, password = password)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                messages.error(request, "Could not login.")
+                return redirect('/signup')
     
     messages.success(request, "Welcome!!")
     return render(request, 'signup.html')
