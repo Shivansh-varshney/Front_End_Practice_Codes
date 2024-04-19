@@ -1,16 +1,17 @@
-h1{
+h1 {
   text-align: center;
   margin-top: 10px;
 }
 
 div {
-    text-align: center;
-  }
+  text-align: center;
+}
 
-.left{
+.left {
   margin-left: 50px;
 }
 
-.right, .left{
+.right,
+.left {
   margin-top: 20px;
 }

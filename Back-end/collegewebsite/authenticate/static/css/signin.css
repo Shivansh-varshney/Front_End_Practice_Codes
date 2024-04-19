@@ -7,26 +7,16 @@ ul{
     list-style-type: none;
 }
 
-#emaildiv,
-#passworddiv{
+.hide{
     display: none;
 }
 
 .success{
-    font-size: inherit;
     background-color: lightgreen;
-    margin-bottom: 10px;
-    margin-left: 20px;
-    padding-left: 10px;
 }
 
 .error{
-    font-size: inherit;
-    color: black;
     background-color: rgba(255, 0, 0, 0.82);
-    margin-bottom: 10px;
-    margin-left: 20px;
-    padding-left: 10px;
 }
 
 .btn-close{
