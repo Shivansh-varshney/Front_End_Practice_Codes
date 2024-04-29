@@ -21,9 +21,70 @@ def check_email(email):
     
     except User.DoesNotExist:
         return False
-    
+
 # Create your views here.
 
+# home page of the site
+@login_required(login_url='/signin')
+def index(request):
+    return render(request, 'index.html')
+
+# help user see and update account details 
+@login_required(login_url='/signin')
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        
+        if user_form.is_valid():
+            user_form.save()
+            
+            user = User.objects.get(username = request.user)
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+
+            if first_name != user.first_name:
+                user.first_name = first_name
+                user.save()
+
+            elif last_name != user.last_name:
+                user.last_name = last_name
+                user.save()
+
+            messages.success(request, 'Account Details Updated successfully.')
+            return redirect('/profile')
+
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+                
+    return render(request, 'profile.html', {'user_form':user_form})
+
+# change the user account password
+@login_required(login_url='/signin')
+def change(request):
+    if request.method == 'POST':
+        
+        old_password = request.user.password
+        print(old_password)
+
+        new_password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if new_password == confirm_password:
+            try:
+                user = User.objects.get(username = request.user)
+                user.set_password(f'{new_password}')
+                user.save()
+
+                messages.success(request, 'Your password changed successfully!!')
+                return redirect('/logout')
+            
+            except Exception as error:
+                messages.error(request, f'Error: {error}')
+                return redirect('change_password')
+    
+    return render(request, 'change_password.html')
+
+# help user create account on the site and then render the same again to help him login to the site.
 def signin(request):
 
     if request.method == "POST":
@@ -65,11 +126,7 @@ def signin(request):
     
     return render(request, 'signin.html')
 
-@login_required(login_url='/signin')
-
-def index(request):
-    return render(request, 'index.html')
-
+# login to the site
 def loginuser(request):
 
     if request.method == 'POST':
@@ -95,59 +152,9 @@ def loginuser(request):
 
     return render(request, 'signin.html')
 
+# logout from the site
 def logoutuser(request):
 
     logout(request)
     messages.success(request, "You have been logged out successfully. Kindly login again to continue.")
     return redirect('/signin')
-
-def profile(request):
-    if request.method == 'POST':
-        user_form = UpdateUserForm(request.POST, instance=request.user)
-        
-        if user_form.is_valid():
-            user_form.save()
-            
-            user = User.objects.get(username = request.user)
-            first_name = request.POST.get('first_name')
-            last_name = request.POST.get('last_name')
-
-            if first_name != user.first_name:
-                user.first_name = first_name
-                user.save()
-
-            elif last_name != user.last_name:
-                user.last_name = last_name
-                user.save()
-
-            messages.success(request, 'Account Details Updated successfully.')
-            return redirect('/profile')
-
-    else:
-        user_form = UpdateUserForm(instance=request.user)
-                
-    return render(request, 'profile.html', {'user_form':user_form})
-
-def change(request):
-    if request.method == 'POST':
-        
-        old_password = request.user.password
-        print(old_password)
-
-        new_password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
-
-        if new_password == confirm_password:
-            try:
-                user = User.objects.get(username = request.user)
-                user.set_password(f'{new_password}')
-                user.save()
-
-                messages.success(request, 'Your password changed successfully!!')
-                return redirect('/signin')
-            
-            except Exception as error:
-                messages.error(request, f'Error: {error}')
-                return redirect('change_password')
-    
-    return render(request, 'change_password.html')
