@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Home | Your Childhood
+{% endblock %}
+
+{% block staticfiles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+{% endblock %}
+
+{% block body %}
+  {% block menu %}
+    <ul id="menu">
+      <a href="profile"><li>Profile</li></a>
+
+      <!-- Button trigger modal -->
+      <li data-bs-toggle="modal" data-bs-target="#exampleModal">Log Out</li>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to log-out?</h1>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-bs-dismiss="modal">Go Back</button>
+              <a href="logout"><button type="button" class="btn btn-danger">Log Out</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ul>
+  {% endblock %}
+
+  <div>
+    <span>Hey!! {{ request.user }}</span>
+    <h1>Listen to the Childhood melodies now for free!!</h1>
+  </div>
+
+  <div>
+    <iframe class="right" width="560" height="315" src="https://www.youtube.com/embed/cTWdH8JNtIc?si=1EYZN0ytrEvE-A9o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe class="left" width="560" height="315" src="https://www.youtube.com/embed/60whXjnAhw8?si=wTA2iZPmf3bucbIs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+  <div>
+    <iframe class="right" width="560" height="315" src="https://www.youtube.com/embed/3kWoZw1AZaE?si=DQe6LXW2Bb6pd6MZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe class="left" width="560" height="315" src="https://www.youtube.com/embed/kPc0621w-OI?si=SDKi3NQKme9ByS8F" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+  <div>
+    <iframe class="right" width="560" height="315" src="https://www.youtube.com/embed/sa29HkbLKmQ?si=YGKdbUeC1ftBtgeX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe class="left" width="560" height="315" src="https://www.youtube.com/embed/iZVhZpXVczU?si=iRIoS3Febz51imO_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+{% endblock %}
